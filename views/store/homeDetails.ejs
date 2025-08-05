@@ -1,0 +1,46 @@
+<%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/nav') %>
+  <div class="container my-5">
+    <h2 class="text-center text-danger mb-4">
+      Home Details - <%= home.name %>
+    </h2>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <img src="/<%= home.photoUrl %>" alt="<%= home.name %>" class="img-fluid rounded shadow">
+      </div>
+
+      <div class="col-md-6">      
+        <div class="mb-4">
+          <h4 class="fw-bold">Description</h4>
+          <p class="text-muted" style="text-align: justify;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque provident adipisci delectus, officia illo numquam vitae...
+          </p>
+        </div>
+        
+        <div class="mb-3">
+          <h5 class="fw-bold">Location</h5>
+          <p><i class="bi bi-geo-alt-fill text-primary"></i> <%= home.location %></p>
+        </div>
+
+        <div class="mb-3">
+          <h5 class="fw-bold">Price</h5>
+          <p class="text-success fs-5 fw-semibold">Rs <%= home.price %> / Month</p>
+        </div>
+
+        <div class="mb-3">
+          <h5 class="fw-bold">Rating</h5>
+          <p class="mb-0"><span class="text-warning fs-4">★</span> <%= home.rating %> / 5</p>
+        </div>
+
+        <form action="/user/watchlist" method="POST" class="mt-4">
+          <input type="hidden" name="favouriteId" value="<%= home._id %>">
+          <button type="submit" class="btn btn-success w-100">Add to Favourite</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

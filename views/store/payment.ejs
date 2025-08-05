@@ -1,0 +1,52 @@
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/nav') %>
+
+  <main class="container my-5">
+    <h2 class="text-center text-primary mb-4 fw-bold">Payment Page</h2>
+
+    <div class="row justify-content-center">
+      <!-- Payment Card -->
+      <div class="col-md-6 col-sm-10">
+        <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-header bg-success text-white fw-bold">
+            Order Summary
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Room Charges</span>
+              <span>₹<%= home.price %></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Platform Fee</span>
+              <span>₹999</span>
+            </li>
+          </ul>
+          <div class="card-footer d-flex justify-content-between fw-bold">
+            <span>Total Payable</span>
+            <span id="totalAmount">₹<%= Number(home.price) + 999 %></span>
+          </div>
+        </div>
+
+        <!-- Payment Button -->
+        <div class="text-center mt-4">
+        <form action="/user/home-booking/payment/<%= home._id %>/card-details">
+          <p class="text-muted">By clicking "Make Payment", you agree to our <a href="#" class="text-decoration-underline">Terms & Conditions</a>.</p>
+          <button  class="btn btn-primary btn-lg w-100">
+            Make Payment
+          </button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- <script>
+    function makePayment(price) {
+      const total = price + 999;
+      alert("Payment of ₹" + total + " successful!");
+      window.location.href = "/user/Booking";
+    }
+  </script> -->
+</body>
+</html>
