@@ -1,0 +1,46 @@
+<%- include('../partials/head') %>
+<link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body class="bg-gradient-to-r from-gray-100 via-gray-50 to-gray-100 text-gray-800">
+  <%- include('../partials/nav') %>
+  <%- include('../partials/sidebar') %>
+  <div class="container-size">
+  <main class="container mx-auto px-6 py-12 max-w-6xl  size">
+    <section class="bg-white  p-50 rounded-2xl p-10 mt-10">
+      <h2 class="fs-1 text-danger fw-bold text-start mb-4 ps-4">Contact Us</h2>
+        <div class="mb-10">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Get in Touch</h2>
+            <p class="text-gray-600 leading-relaxed text-justify">
+            We'd love to hear from you! Whether you have questions about our listings, need assistance with your account, 
+            or want to provide feedback, our team is here to help. Reach out to us through any of the following methods:
+            </p>
+            <div>
+                <form action="/user/contact-us" method="post">
+                <input type="email" placeholder="Your Email" name="email" class="w-full p-3 border border-gray-300 rounded-lg mb-4" required>
+                <textarea placeholder="Your Message" name="message" class="w-full p-3 border border-gray-300 rounded-lg mb-4 h-32" required></textarea>
+                <button class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition">Send Message</button>    
+                </form>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <% if(successMessage){ %>                 
+                <script>
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Contact Request Sent!',
+                    text: 'We have received your message and will get back to you shortly.',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didClose: () => {
+                        window.location.href = "/user/contact-us";
+                    }
+                });
+                </script>                
+                <% } %>
+            </div>                
+    </section>
+  </main>
+  </div>
+  <%- include('../partials/footer') %>
+</body>
+</html>

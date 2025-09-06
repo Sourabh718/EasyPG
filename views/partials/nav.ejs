@@ -1,11 +1,12 @@
-
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<link rel="stylesheet" href="/css/partials.css">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container-fluid">
     <% if(!isLoggedIn){ %>
-    <a class="navbar-brand fw-bold text-white" href="/">
-      <i class="bi bi-house-door-fill"></i> Home
-    </a>
-    <% }%>
+      <% } %>
+      
+      <a class="navbar-brand fw-bold text-white" href="/">
+        <img src="/image/logo.png" alt="EasyPG" style="height: 60px; width: 50px; margin: 0 15px;">
+      </a>    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,31 +17,47 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if(isLoggedIn){ %>
           <% if(user.userType=='user'){ %>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="/user/home-list"> Home List</a>
+            <li class="nav-item ">
+              <a class="nav-link <%= (currentPath === '/user/home-list') ? 'active' : '' %>" 
+                 href="/user/home-list"> Home List</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="/booking"> Booking</a>
-            </li> -->
             <li class="nav-item">
-              <a class="nav-link" href="/user/watchlist"> Favourites</a>
+              <a class="nav-link <%= (currentPath === '/user/watchlist') ? 'active' : '' %>" 
+                 href="/user/watchlist"> Favourites</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link <%= (currentPath === '/user/my-profile') ? 'active' : '' %>" 
+                 href="/user/my-profile"> Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= (currentPath === '/user/about-us') ? 'active' : '' %>" 
+                href="/user/about-us"> About US</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <%= (currentPath === '/user/contact-us') ? 'active' : '' %>" 
+                   href="/user/contact-us"> Contact</a>
+              </li>
           <% } else { %>
             <li class="nav-item">
-              <a class="nav-link" href="/host/add-home"> Add Home</a>
+              <a class="nav-link <%= (currentPath === '/host/add-home') ? 'active' : '' %>" 
+                 href="/host/add-home"> Add Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/host/home-list"> Host Homes</a>
+              <a class="nav-link <%= (currentPath === '/host/home-list') ? 'active' : '' %>" 
+                 href="/host/home-list"> Host Homes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= (currentPath === '/host/request') ? 'active' : '' %>" 
+                 href="/host/request"> Requests</a>
             </li>
           <% } %>
         <% } %>
       </ul>
 
-      <!-- Right Side -->
       <div class="d-flex align-items-center gap-3">
         <% if(!isLoggedIn){ %>
           <a class="btn btn-outline-light" href="/login">Login</a>
-          <a class="btn btn-danger" href="/signup">Sign Up</a>
+          <a class="btn btn-danger " href="/signup">Sign Up</a>
         <% } else { %>
           <form action="/logout" method="post" class="m-0">
             <button class="btn btn-warning">Logout</button>

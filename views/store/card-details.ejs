@@ -8,31 +8,31 @@
     <div class="row justify-content-center">
       <div class="col-md-6 col-sm-10">
         <div class="card shadow-lg border-0 rounded-4 p-4">
-          <form id="paymentForm" onsubmit="return submitPayment(event)">
+          <form id="paymentForm" onsubmit="return submitPayment(event)" method="POST" action="/user/home-booking/payment/<%= home._id %>/card-details">
             <div class="mb-3">
               <label for="cardName" class="form-label fw-bold">Cardholder Name</label>
-              <input type="text" class="form-control" id="cardName" placeholder="John Doe" >
+              <input type="text" class="form-control" id="cardName" placeholder="John Doe" required>
             </div>
 
             <div class="mb-3">
               <label for="cardNumber" class="form-label fw-bold">Card Number</label>
-              <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456"  maxlength="19">
+              <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456"  maxlength="19" required>
             </div>
 
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="expiry" class="form-label fw-bold">Expiry Date</label>
-                <input type="text" class="form-control" id="expiry" placeholder="MM/YY"  maxlength="5">
+                <input type="text" class="form-control" id="expiry" placeholder="MM/YY"  maxlength="5" required>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="cvv" class="form-label fw-bold">CVV</label>
-                <input type="password" class="form-control" id="cvv" placeholder="123"  maxlength="4">
+                <input type="password" class="form-control" id="cvv" placeholder="123"  maxlength="4" required>
               </div>
             </div>
 
             <div class="mb-4">
               <label for="amount" class="form-label fw-bold">Total Amount</label>
-              <input type="text" class="form-control" id="amount" value="₹<%= home.price + 999 %>" readonly>
+              <input type="text" class="form-control" id="amount" value="₹<%= Number(home.price) + 999 %>" readonly>
             </div>
 
             <button type="submit" id="payBtn" class="btn btn-success w-100 btn-lg">Pay Now</button>
@@ -41,24 +41,20 @@
       </div>
     </div>
   </main>
-
-  <!-- SweetAlert2 CDN -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
     function submitPayment(event) {
       event.preventDefault();
-
-      // Disable the button and show loading spinner
       const payBtn = document.getElementById("payBtn");
       payBtn.disabled = true;
       payBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Processing...`;
 
-      // Simulate 5 seconds delay
       setTimeout(() => {
         payBtn.innerHTML = 'Pay Now';
         payBtn.disabled = false;
-      }, 2500);
+        document.getElementById("paymentForm").submit();
+      }, 5000);
       setTimeout(() => {
         Swal.fire({
           icon: 'success',
@@ -66,14 +62,9 @@
           text: 'Your booking has been confirmed.',
           showConfirmButton: false,
           timer: 3000,
-          timerProgressBar: true,
-          didClose: () => {
-            window.location.href = "/user/Booking";
-          }
+          timerProgressBar: true,          
         });
-      }, 2500);
-      
-
+      }, 2500);      
     }
   </script>
 </body>

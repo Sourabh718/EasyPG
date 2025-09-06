@@ -1,0 +1,98 @@
+  body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    max-width: 700px;
+    margin: auto;
+  }
+  .card-logo {
+    font-size: 3.5rem;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+  }
+  @media (max-width: 600px) {
+    .card-logo {
+      font-size: 2.5rem;
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+  }
+  .card-details {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  }
+  .card-name {
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    text-transform: capitalize;
+    color: #333;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+  }
+
+  input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    outline: none;
+  }
+
+  .card-details button[type="submit"] {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  .card-details button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  #delete-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  #delete-form .btn-danger {
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+
+  #delete-form .btn-danger:hover {
+    background-color: #c82333;
+  }
+  .card-details > div {
+    margin-bottom: 1.25rem;
+  }

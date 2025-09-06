@@ -1,13 +1,10 @@
-require('dotenv').config();
+// require('dotenv').config();
 const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
 const password = encodeURIComponent('root');
-const mongoUrl = process.env.MONGO_URI;
-console.log("Mongo URL:", mongoUrl);
+// const mongoUrl = process.env.MONGO_URI;
 // const mongoUrl = `mongodb+srv://sourabhtripathi718:${password}@cluster0.rc5jobe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-// const mongoUrl = mongodb://mongo/findMyStay
-// const mongoUrl = "mongodb://mongo/findMyStay";
-// const mongoUrl = "mongodb://localhost:27017/findMyStay";
+const mongoUrl = "mongodb://localhost:27017/findMyStay";
 
 let _db;
 const mongoConnect = (callback)=>{

@@ -21,8 +21,12 @@ authRouter.post('/signup', [
     .withMessage('enter a valid email')
     .normalizeEmail(),
 
+    check('mobileNo')
+    .isMobilePhone('en-IN')
+    .withMessage('enter a valid mobile number'),
+
     check('password')
-    .isLength({min:1})
+    .isLength({min:8})
     .withMessage('password should be atleast 8 character'),
     
     check('confirmPassword')

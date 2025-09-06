@@ -21,135 +21,13 @@
                   <span class="text-gray-700"><%= home.rating %></span>
                 </div>
               </div>
-             <button class="bg-green-300 p-2">Book</button>
+             <!-- <button class="bg-green-300 p-2" >Book</button> -->
+             <a href="/user/home-list" class="btn btn-success btn-sm">Book</a>
             </div>
           </div>
           <% })%>
       </div>
     </main>
+    <%- include('../partials/footer') %>
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registered Homes - AirBnb</title>
-  <link rel="stylesheet" href="/public/style.css">
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(120deg, #1c1c1e, #2c3e50);
-      color: #ecf0f1;
-    }
-    header, main {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-    }
-    h2 {
-      text-align: center;
-      color: #f39c12;
-      font-size: 42px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #f39c12;
-      margin-bottom: 40px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-    }
-    .card {
-      background: linear-gradient(135deg, #2c3e50, #34495e);
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      backdrop-filter: blur(5px);
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-    }
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    .card-content {
-      padding: 20px;
-    }
-    .card-content h3 {
-      margin: 0 0 10px;
-      font-size: 22px;
-      color: #f1c40f;
-    }
-    .card-content p {
-      margin: 6px 0;
-      color: #bdc3c7;
-      font-size: 15px;
-    }
-    .price-rating {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 12px;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .price-rating span:first-child {
-      color: #1abc9c;
-    }
-    .price-rating span:last-child {
-      color: #f39c12;
-    }
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 50px;
-    }
-    .back-link a {
-      display: inline-block;
-      background: linear-gradient(to right, #f39c12, #e67e22);
-      color: #fff;
-      text-decoration: none;
-      padding: 14px 30px;
-      border-radius: 8px;
-      font-weight: bold;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-    .back-link a:hover {
-      background: linear-gradient(to right, #e67e22, #d35400);
-      transform: scale(1.05);
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <h2>Here is your registered home</h2>
-    <div class="grid">
-      <% registeredHome.forEach(home => { %>
-        <div class="card">
-          <img src="<%= home.photoUrl %>" alt="<%= home.houseName %>">
-          <div class="card-content">
-            <h3><%= home.houseName %></h3>
-            <p><%= home.location %></p>
-            <div class="price-rating">
-              <span>₹<%= home.price %>/night</span>
-              <span>⭐ <%= home.rating %></span>
-            </div>
-          </div>
-        </div>
-      <% }) %>
-    </div>
-    <div class="back-link">
-      <a href="/host/add-home">+ Add Another Home</a>
-    </div>
-  </main>
-</body>
-</html> -->

@@ -1,9 +1,9 @@
 // core module
+require('dotenv').config();
+const mongoUrl = process.env.MONGO_URI;
 const path = require('path');
 const express=require('express');
 const app = express();
-app.set('view engine', 'ejs');
-app.set('views', 'views');
 const session = require('express-session')
 const { default: mongoose } = require('mongoose');
 const multer = require('multer');
@@ -11,18 +11,22 @@ const MongoDBStore  = require('connect-mongodb-session')(session);
 
 // external module 
 const userRouter=require('./routes/userRouter');
-const {hostRouter}=require('./routes/hostRouter');
+const { hostRouter }=require('./routes/hostRouter');
 const rootDir = path.dirname(require.main.filename);
 const hostController = require('./controllers/hostController');
-const {mongoConnect, mongoUrl} = require('./utils/database');
 const { authRouter } = require('./routes/authRouter');
 const Home = require('./models/homes');
-
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.static(path.join(rootDir,'public')))
 app.use('/uploads', express.static(path.join(rootDir, 'uploads')));
 app.use('/host/uploads', express.static(path.join(rootDir,'uploads')));
 app.use('/user/uploads', express.static(path.join(rootDir, 'uploads')));
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 const randomString = (length)=>{
     const char = 'abcdefghijklmnopqrstuvwxyz';
@@ -77,22 +81,25 @@ app.use((req,res,next)=>{
 })
 app.get('/',(req,res,next)=>{
     
-    Home.fetchAll().then(registeredHome=>{
-        res.render('store/index',{registeredHome, pageTitle:'EasyPG', isLoggedIn: req.isLoggedIn, user:req.session.user});
+    Home.find().then(registeredHome=>{
+       res.render('store/index',{registeredHome, pageTitle:'EasyPG', isLoggedIn: req.isLoggedIn, user:req.session.user, currentPath: req.originalUrl });
     });
 });
 app.use('/user',userRouter);
 app.use("/host",hostRouter);
 app.use(hostController.goTo404);
 
-
 // database connection
-const PORT=3000;
-mongoConnect(() => {
-    app.listen(PORT,()=>{
+const PORT=5000;
+
+const startServer = async () => {
+    try {
+        await mongoose.connect(mongoUrl)
+        app.listen(PORT,()=>{
         console.log(`server: http://localhost:${PORT}`); 
-    });
-});
-mongoose.connect(mongoUrl)
-    .then(() => console.log('Mongoose connected '))
-    .catch(err => console.error('Mongoose connection error:', err));
+    })
+    } catch (error) {
+        console.log('Mongoose connection error:', error)
+    }
+}
+startServer();

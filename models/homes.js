@@ -1,52 +1,43 @@
-const path = require('path');
-const fs=require('fs');
-const rootDir=require('../utils/pathUtils');
-const { getDb } = require('../utils/database');
-const { ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
+const User = require('./user')
 
-module.exports = class Home{
-    constructor(houseName, price, location, rating, photoUrl,_id){
-        this.houseName=houseName;
-        this.price=price;
-        this.location=location;
-        this.rating=rating;
-        if(photoUrl){
-        this.photoUrl=photoUrl;  
-        }
-        if(_id){
-            this._id=_id;
-            // this._id = new ObjectId(_id);
-        }      
-    }
+const homeSchema = mongoose.Schema({
+  houseName: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  location: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
+  photoUrl: String,
+  
+});
 
-    save(){
-        const db= getDb();
-        if(this._id){
-            let updatedItem = {
-                houseName:this.houseName,
-                price:this.price,
-                location:this.location,
-                rating:this.rating,
-                photoUrl:this.photoUrl
-            }
-            return db.collection('homes').updateOne({_id:new ObjectId(String(this._id))},{$set : updatedItem})
-        }
-        else
-        return db.collection('homes').insertOne(this);
-    }
+homeSchema.pre('findOneAndDelete', async function(next) {
+  try {
+    const homeId = this.getQuery()._id;
+    await User.updateMany(
+      { favourites: homeId },
+      { $pull: { favourites: homeId} }
+    );
+    await User.updateMany(
+      {"booking.home": homeId },
+      { $pull: { booking: { home: homeId} } }
+    );
+    next();
+  } catch (err) {
+    console.log('error agaon',err)
+    next(err);
+  }
+});
 
-    static fetchAll(){
-        const db=getDb();
-       return db.collection('homes').find().toArray();
-    }
-    static findById(homeId,callback){
-        const db=getDb();
-        return db.collection('homes').find({_id:new ObjectId(String(homeId))}).next(); 
-        //jab mogodb me find function call karte hai to vo ek cursor return karta hai, not the actual document. next is use to call the cursor to get the next document
-    }
-
-    static deleteById(homeId,callback){
-         const db=getDb();
-        return db.collection('homes').deleteOne({_id:new ObjectId(String(homeId))})
-    }
-}
+module.exports = mongoose.model('Home', homeSchema);

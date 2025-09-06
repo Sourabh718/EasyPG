@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="/css/partials.css">
+<input type="checkbox" id="menu-toggle" hidden>
+<label for="menu-toggle" class="toggle"> 
+    <span class="top_line common"></span>
+    <span class="middle_line common"></span>
+    <span class="bottom_line common"></span>
+</label>
+<aside class="sidebar">
+    <div class="space"></div>
+    <h5 class="mb-3 fontSize">
+        <span class="material-symbols-outlined">dashboard</span> Dashboard
+    </h5>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link text-white fontSize" href="/user/booking">
+                <span class="material-symbols-outlined">book</span> 
+                <span class="fontSize">Booking</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/user/watchlist">
+                <span class="material-symbols-outlined fontSize">favorite</span> 
+                <span class="fontSize">Wishlist</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/user/my-profile">
+                <span class="material-symbols-outlined fontSize">person</span>
+                <span class="fontSize">Profile</span>
+            </a>
+        </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle fontSize" data-bs-toggle="dropdown">
+            <span width="32" height="32" class="bar-logo"><%= user.username.charAt(0).toUpperCase() %></span>
+            <strong><%= user.username %></strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item" href="/user/my-profile">Profile</a></li>
+            <li><a class="dropdown-item" href="/user/contact-us">Contact</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <form action="/logout" method="post" class="m-0">
+            <li><button class="dropdown-item">Logout</button></li>
+          </form>
+        </ul>
+    </div>
+</aside>

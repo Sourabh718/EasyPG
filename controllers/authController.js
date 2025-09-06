@@ -51,12 +51,12 @@ exports.getSignup =(req,res,next)=>{
     res.render('auth/signup', {pageTitle:'SignUp',
         isLoggedIn:false, 
         errors:[], 
-        oldInput:{username:"", email:"",userType:"", terms:""},
+        oldInput:{username:"", email:"",userType:"", terms:"",mobileNo:""},
         user:{},
     });
 }
     exports.postSignup = (req,res,next)=>{
-        const {username, email, password, userType, terms} =req.body;
+        const {username, email, password, userType, terms,mobileNo} =req.body;
         
         const errors = validationResult(req);
         if(!errors.isEmpty()){
@@ -69,7 +69,7 @@ exports.getSignup =(req,res,next)=>{
             });
         }
         bcrypt.hash(password,1).then(hashPassword => {
-            const user = new User({username, email, password:hashPassword, userType});
+            const user = new User({username, email, password:hashPassword, userType, mobileNo});
             return user.save().then(()=>{
             res.redirect('/login');;
         });
@@ -78,7 +78,7 @@ exports.getSignup =(req,res,next)=>{
                 pageTitle:'SignUp',
                 isLoggedIn:false, 
                 errors:[err.message], 
-                oldInput:{username:"", email:"",userType:"", terms:""},
+                oldInput:{username:"", email:"",userType:"", terms:"", mobileNo:""},
                 user:{},
             });
         });

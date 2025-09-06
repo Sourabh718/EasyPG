@@ -1,0 +1,81 @@
+<%- include('../partials/head') %>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/my-profile.css">
+</head>
+<body>
+  <%- include('../partials/nav') %>
+
+  <div class="containers">
+    <%- include('../partials/sidebar') %>
+    <div class="card shadow-lg p-4 overflow-hidden mt-5">
+     <div class="card-logo"><%= user.username.charAt(0).toUpperCase() %></div>
+     <form action="/user/my-profile" method="post">
+      <% if (errors && errors.length > 0) { %>
+    <%- include('../partials/errors') %>
+  <% } %>
+     <div class="card-details">
+     <div>
+      <span class="card-name">Name:</span>
+      <input type="text" name="username" value="<%= user.username %>">
+     </div>
+      <div>
+        <span class="card-name" >email:</span>
+        <input type="text" name="email"  value="<%= user.email %>">
+    </div>
+      <div>
+        <span class="card-name">phone:</span>
+        <input type="text" name="mobileNo"  value="<%= user.mobileNo%>">
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+     </div>         
+     </form>
+     <BR> 
+      <a class="btn btn-success" href="/user/booking" style="width: 40%; margin: auto;">My Booking</a><br>
+     <form action="/user/delete-account" method="post" class="m-0" id="delete-form">
+      <input type="hidden" name="password" id="delete-password">
+       <button class="btn btn-danger" id="delete-account"><i class="bi bi-trash"></i>Delete Account</button>
+     </form>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+   
+   const deleteBtn = document.getElementById('delete-account');
+   deleteBtn.addEventListener('click', (e) => {
+    e.preventDefault(); 
+    
+     Swal.fire({
+      icon: "warning",
+      title: "Are you sure?",
+      text: "This action will delete your account permanently.",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    }).then((confirmResult) => {
+      if (confirmResult.isConfirmed) {
+        Swal.fire({
+          title: "Confirm Deletion",
+          text: "Please enter your password to delete your account:",
+          input: "password",
+          inputPlaceholder: "Enter your password",
+          inputAttributes: {
+            autocapitalize: "off",
+            autocorrect: "off"
+          },
+          showCancelButton: true,
+          confirmButtonText: "Delete",
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6"
+        }).then((passwordResult) => {
+          if (passwordResult.isConfirmed && passwordResult.value) {
+            document.getElementById("delete-password").value = passwordResult.value;
+            document.getElementById("delete-form").submit();
+          }
+        });
+      }
+    });
+  }); 
+  </script>
+  <%- include('../partials/footer') %>
+</body>
+</html>
