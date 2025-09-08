@@ -314,4 +314,4 @@ exports.postDeleteAccount = async (req, res, next) =>{
     console.log("error in deleting account",err);
     res.redirect('/user/my-profile');
   }
-}
+} 
