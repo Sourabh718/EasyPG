@@ -20,7 +20,7 @@
   <div class="container my-5">
     <div class="row g-4 shadow-lg p-4 rounded-4 container-size">
       <h2 class="text-left text-danger mb-4">
-        Home Details - <%= home.houseName %>
+        Hostel Details - <%= home.houseName %>
       </h2>
       <div class="col-md-6">
         <img src="/<%= home.photoUrl %>" alt="<%= home.name %>" class="img-fluid rounded shadow">
@@ -48,8 +48,6 @@
           <h5 class="fw-bold">Rating</h5>
           <p class="mb-0"><span class="text-warning fs-4">★</span> <%= home.rating %> / 5</p>
         </div>
-
-        <!-- <a href="/rules" download class="btn btn-primary">Download House Rule</a> -->
         <a href="../../uploads/file/rules.pdf" download class="btn btn-primary">Download Hostel Rule's</a>
       </div>
     </div>
