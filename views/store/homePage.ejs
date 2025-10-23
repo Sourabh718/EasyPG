@@ -21,6 +21,19 @@
         flex-wrap: wrap;
         margin: auto
     }
+    #search-bar {
+        width: 50%;
+        max-width: 600px;
+        border-radius: 40px;
+        padding: 15px;
+        margin: auto;
+        border: 1px solid #a7a6a6;
+    }
+    @media (max-width: 768px) {
+        #search-bar {
+            width: 100%;
+        }
+    }
 </style>
 <body>
     <%- include('../partials/nav') %>
@@ -31,14 +44,16 @@
         <%- include('../partials/sidebar') %>
         <div class="row g-4 bg-green-100 p-4 rounded-4 shadow-lg size resposive-container">
         <h2 class="text-center text-danger mb-4 fw-bold">Explore Our Registered Homes</h2>
-        
-            <% registeredHomes.forEach(home => { %>
-            <div class="col-md-4 col-sm-6 resposive-item">
+        <div>
+        <input type="text" name="search-bar" id="search-bar" class="form-control mb-4" placeholder="Search homes by name or location..." onkeyup="filterHomes()">
+        </div> 
+        <% registeredHomes.forEach(home => { %>
+            <div class="col-md-4 col-sm-6 responsive-item">
                 <div class="card shadow-lg border-0 rounded-4 h-100 card">
                     <img src="/<%= home.photoUrl %>" alt="<%= home.houseName %>" class="card-img-top" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
                         <div class="name-favourite">
-                            <h5 class="card-title text-primary"><%= home.houseName %></h5>
+                            <h5 class="card-title text-primary"id="home-name"><%= home.houseName %></h5>
                             <% const isFav = favouriteHomes.some(fav => fav._id.toString() === home._id.toString()); %>
                                 <button 
                                 class="fav-toggle btn btn-link p-0 border-0 bg-transparent"
@@ -52,7 +67,7 @@
                                 <% } %>
                             </button>
                         </div>
-                        <p class="text-muted mb-2"><i class="bi bi-geo-alt-fill"></i> <%= home.location %></p>
+                        <p class="text-muted mb-2" id="home-location"></p><i class="bi bi-geo-alt-fill"></i> <%= home.location %></p>
                         <div class="d-flex justify-content-between mb-3">
                             <span class="text-danger fw-bold">₹<%= home.price %> / Month</span>
                             <span class="text-warning fw-bold">★<%= home.rating %></span>
@@ -109,6 +124,21 @@
         });
     });
     });
+    function filterHomes() {       
+        const input = document.getElementById('search-bar').value.toLowerCase();
+        const homeCards = document.querySelectorAll('.responsive-item');
+
+        homeCards.forEach(card => {
+          const homeName = card.querySelector('#home-name').textContent.toLowerCase();
+          const homeLocation = card.querySelector('#home-location').textContent.toLowerCase();
+
+          if (homeName.includes(input) || homeLocation.includes(input)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+    }
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
