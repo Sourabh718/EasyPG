@@ -1,17 +1,35 @@
 <%- include('../partials/head') %>
     <link rel="stylesheet" href="output.css">
+    <style>
+       #search-bar {
+        width: 50%;
+        max-width: 600px;
+        border-radius: 40px;
+        padding: 15px;
+        margin: auto;
+        border: 1px solid #a7a6a6;
+    }
+    @media (max-width: 768px) {
+        #search-bar {
+            width: 100%;
+        }
+    }
+    </style>
 </head>
 <body>
     <%- include('../partials/nav') %>
     <main class="container mx-auto bg-white shadow-lg rounded-lg p-8 mt-10 max-w-xl">
       <h2 class="text-3xl text-red-500 font-bold text-center mb-6"> Welcome To EasyPG:</h2>
+     <div>
+        <input type="text" name="search-bar" id="search-bar" class="form-control mb-4" placeholder="Search homes by name or location..." onkeyup="filterHomes()">
+      </div> 
       <div class="flex flex-wrap justify-center gap-6">
       <% registeredHome.forEach(home => { %>
-      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 w-full max-w-sm">
+      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 w-full max-w-sm home-card">
             <img src="<%=home.photoUrl %>" alt="<%= home.houseName %>" class="w-full h-48 object-cover">
             <div class="p-4">
-              <h3 class="text-xl font-semibold text-gray-800 mb-2"><%= home.houseName %></h3>
-              <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-2"></i><%= home.location %></p>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2 " id="home-name"><%= home.houseName %></h3>
+              <p class="text-gray-600 mb-2" id="home-location" ><i class="fas fa-map-marker-alt mr-2"></i><%= home.location %></p>
               <div class="flex justify-between items-center mb-2">
                 <span class="text-lg font-bold text-red-500">Rs<%= home.price %> / Month</span>
                 <div class="flex items-center">
@@ -28,5 +46,22 @@
       </div>
     </main>
     <%- include('../partials/footer') %>
+    <script>
+      function filterHomes() {
+        const input = document.getElementById('search-bar').value.toLowerCase();
+        const homeCards = document.querySelectorAll('.home-card');
+
+        homeCards.forEach(card => {
+          const homeName = card.querySelector('#home-name').textContent.toLowerCase();
+          const homeLocation = card.querySelector('#home-location').textContent.toLowerCase();
+
+          if (homeName.includes(input) || homeLocation.includes(input)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+    </script>
 </body>
 </html>
